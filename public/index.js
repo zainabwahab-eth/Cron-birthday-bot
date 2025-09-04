@@ -200,12 +200,13 @@ const addCustomers = async (customers) => {
         customers,
       },
     });
+    console.log(response);
     const status = response.data.status;
     const addedCustomers = response.data.data.customers;
 
     if (status === "success" || status === "partial") {
       updateTableRow(addedCustomers);
-      console.log(error.response?.data?.message);
+      console.log(addedCustomers);
     }
 
     if (status === "partial") {
@@ -215,8 +216,8 @@ const addCustomers = async (customers) => {
       );
     }
   } catch (error) {
-    console.error("Error adding customer", error.response?.data?.message);
-    showError("There was an error");
+    console.error("Error adding customer", error.response);
+    showError(error.response?.data?.message);
   }
 };
 
