@@ -8,6 +8,8 @@ dotenv.config({ path: "./config.env" });
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 // cron.schedule("* * * * *", () => {
 //   console.log("Running a task every minute", new Date().toLocaleTimeString());
 // });
