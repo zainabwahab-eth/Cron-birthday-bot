@@ -10,16 +10,9 @@ const app = express();
 
 app.set("trust proxy", 1);
 
-// cron.schedule("* * * * *", () => {
-//   console.log("Running a task every minute", new Date().toLocaleTimeString());
-// });
-
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? process.env.BACKEND_URL
-        : "http://localhost:9000",
+    origin: true,
   })
 );
 

@@ -205,7 +205,7 @@ const addCustomers = async (customers) => {
 
     if (status === "success" || status === "partial") {
       updateTableRow(addedCustomers);
-      console.log(addedCustomers);
+      console.log(error.response?.data?.message);
     }
 
     if (status === "partial") {
@@ -216,16 +216,7 @@ const addCustomers = async (customers) => {
     }
   } catch (error) {
     console.error("Error adding customer", error.response?.data?.message);
-    // if (error.response?.data?.message.includes("duplicate")) {
-    //   console.error(
-    //     "Error adding customer",
-    //     error.response?.data?.failedCustomers
-    //   );
-    //   const failedCustomers = error.response?.data?.failedCustomers;
-    //   showError(
-    //     `unable to add ${failedCustomers.length} email because they already exist`
-    //   );
-    // }
+    showError("There was an error");
   }
 };
 
