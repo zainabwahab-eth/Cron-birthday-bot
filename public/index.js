@@ -7,7 +7,11 @@ const userDob = document.querySelector(".dob");
 const csvFile = document.querySelector(".file");
 const noCustomer = document.querySelector(".no-customer");
 const errorDiv = document.querySelector(".error");
-let customerIndex = 1;
+
+const BASE_URL =
+  window.env.NODE_ENV === "production"
+    ? window.env.BACKEND_URL
+    : "http://localhost:9000";
 
 const showError = (message) => {
   errorDiv.classList.remove("hidden");
@@ -80,7 +84,6 @@ const addMore = () => {
         <button type="button" onclick="this.parentElement.remove()">x</button>
       `;
   container.appendChild(block);
-  customerIndex++;
 };
 
 const switchToCSV = () => {
@@ -159,7 +162,7 @@ const uploadCSV = async (file) => {
   try {
     const response = await axios({
       method: "POST",
-      url: "http://localhost:9000/api/v1/customer/uploadCsv",
+      url: `${BASE_URL}/api/v1/customer/uploadCsv`,
       data: {
         csvFile: file,
       },
@@ -192,7 +195,7 @@ const addCustomers = async (customers) => {
   try {
     const response = await axios({
       method: "POST",
-      url: "http://localhost:9000/api/v1/customer/addCustomers",
+      url: `${BASE_URL}/api/v1/customer/addCustomers`,
       data: {
         customers,
       },
@@ -235,7 +238,7 @@ tableBody.addEventListener("click", async (e) => {
     try {
       const response = await axios({
         method: "DELETE",
-        url: `http://localhost:9000/api/v1/customer/delete/${customerId}`,
+        url: `${BASE_URL}/api/v1/customer/delete/${customerId}`,
       });
       console.log(response);
       if (response.data.status === "success") {

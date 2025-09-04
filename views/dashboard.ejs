@@ -200,7 +200,13 @@
       </form>
     </div>
   </div>
-
+  
+  <script>
+    window.env = {
+      BACKEND_URL: "<%= process.env.BACKEND_URL || 'http://localhost:9000' %>",
+      NODE_ENV: "<%= process.env.NODE_ENV || 'development' %>"
+    };
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./index.js"></script>
 </body>
