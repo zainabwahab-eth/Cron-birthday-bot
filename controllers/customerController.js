@@ -190,7 +190,7 @@ exports.deleteCustomer = async (req, res, next) => {
 // Function to check birthdays and send emails
 async function sendBirthdayEmails() {
   const today = new Date();
-  const month = today.getMonth() + 1; // getMonth() is 0-based
+  const month = today.getMonth() + 1;
   const day = today.getDate();
 
   const constomers = await Customer.find();

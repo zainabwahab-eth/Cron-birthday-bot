@@ -6,6 +6,10 @@ and uses a **cron job** to send birthday wishes daily at 7:00 AM via Gmail (Node
 
 ---
 
+## 🖼️ Demo
+
+🔗 **Live App:** [\[Deployed link\]](https://vital-calendar.pipeops.net)
+
 ## 🚀 Features
 
 - ✨ Add customers manually or upload via **CSV file**.
