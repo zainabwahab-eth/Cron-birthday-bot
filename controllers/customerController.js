@@ -193,23 +193,31 @@ async function sendBirthdayEmails() {
   const month = today.getMonth() + 1;
   const day = today.getDate();
 
-  const constomers = await Customer.find();
-  const birthdayPeople = constomers.filter((customer) => {
-    const dob = new Date(customer.dateOfBirth);
-    return dob.getDate() === day && dob.getMonth() + 1 === month;
-  });
-
-  birthdayPeople.forEach(async (person) => {
-    console.log(`Sending email to ${person.email} 🎉`);
-    await sendEmail({
-      email: person.email,
-      subject: "Happy Birthday!!!",
-      html: "<h1>🎉 Happy Birthday!</h1><p>Wishing you a wonderful day!</p>",
+  try {
+    const constomers = await Customer.find();
+    const birthdayPeople = constomers.filter((customer) => {
+      const dob = new Date(customer.dateOfBirth);
+      return dob.getDate() === day && dob.getMonth() + 1 === month;
     });
-  });
+
+    for (const person of birthdayPeople) {
+      try {
+        console.log(`Sending email to ${person.email} 🎉`);
+        await sendEmail({
+          email: person.email,
+          subject: "Happy Birthday!!!",
+          html: "<h1>🎉 Happy Birthday!</h1><p>Wishing you a wonderful day!</p>",
+        });
+      } catch (err) {
+        console.error(`Error sending email to ${person.email}:`, err);
+      }
+    }
+  } catch (err) {
+    console.error("Error in sendBirthdayEmails:", err);
+  }
 }
 
-cron.schedule("*/10 * * * *", () => {
+cron.schedule("*/5 * * * *", () => {
   console.log("Running birthday check...");
   sendBirthdayEmails();
 });

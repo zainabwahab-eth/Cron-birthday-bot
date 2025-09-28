@@ -3,8 +3,8 @@ const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config.env" });
 
-const sendEmail = async (options) => {
-  const transporter = nodemailer.createTransport({
+const createTransporter = () => {
+  return nodemailer.createTransport({
     // service: "gmail",
     host: "smtp.gmail.com",
     port: 587,
@@ -13,7 +13,14 @@ const sendEmail = async (options) => {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS,
     },
+    pool: true,
+    maxConnections: 1,
+    maxMessages: 100,
   });
+};
+
+const sendEmail = async (options) => {
+  const transporter = createTransporter();
 
   const mailOptions = {
     from: `"Zainab Birthday Bot" <${process.env.GMAIL_USER}>`,
@@ -23,7 +30,15 @@ const sendEmail = async (options) => {
     html: options.html,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Email sent successfully to ${options.email}`);
+  } catch (error) {
+    console.error(`Failed to send email to ${options.email}:`, error);
+    throw error;
+  } finally {
+    transporter.close();
+  }
 };
 
 module.exports = sendEmail;
