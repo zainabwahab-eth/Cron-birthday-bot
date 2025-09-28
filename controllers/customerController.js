@@ -223,7 +223,7 @@ cron.schedule("*/10 * * * *", () => {
 //   console.log("sending email...");
 //   try {
 //     await sendEmail({
-//       email: "zainabwahab25@gmail.com",
+//       email: "zainabwahab100@gmail.com",
 //       subject: "Happy Birthday!",
 //       html: "<h1>🎉 Happy Birthday!</h1><p>Wishing you a wonderful day!</p>",
 //     });
