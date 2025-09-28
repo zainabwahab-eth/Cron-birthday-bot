@@ -35,7 +35,7 @@ const normalizeDate = (input) => {
 };
 
 exports.upload = multer({
-  dest: path.join(__dirname, "../uploads"), // uploads folder in your project
+  dest: path.join(__dirname, "../uploads"),
   fileFilter: (req, file, cb) => {
     if (file.mimetype === "text/csv") {
       cb(null, true);
@@ -209,10 +209,15 @@ async function sendBirthdayEmails() {
   });
 }
 
-cron.schedule("0 7 * * *", () => {
+cron.schedule("*/10 * * * *", () => {
   console.log("Running birthday check...");
   sendBirthdayEmails();
 });
+
+// cron.schedule("0 7 * * *", () => {
+//   console.log("Running birthday check...");
+//   sendBirthdayEmails();
+// });
 
 // const sendNow = async () => {
 //   console.log("sending email...");

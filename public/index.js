@@ -8,11 +8,6 @@ const csvFile = document.querySelector(".file");
 const noCustomer = document.querySelector(".no-customer");
 const errorDiv = document.querySelector(".error");
 
-const BASE_URL =
-  window.env.NODE_ENV === "production"
-    ? window.env.BACKEND_URL
-    : "http://localhost:9000";
-
 const showError = (message) => {
   errorDiv.classList.remove("hidden");
   errorDiv.textContent = message;
@@ -162,7 +157,7 @@ const uploadCSV = async (file) => {
   try {
     const response = await axios({
       method: "POST",
-      url: `${BASE_URL}/api/v1/customer/uploadCsv`,
+      url: `/api/v1/customer/uploadCsv`,
       data: {
         csvFile: file,
       },
@@ -195,7 +190,7 @@ const addCustomers = async (customers) => {
   try {
     const response = await axios({
       method: "POST",
-      url: `${BASE_URL}/api/v1/customer/addCustomers`,
+      url: `/api/v1/customer/addCustomers`,
       data: {
         customers,
       },
@@ -230,7 +225,7 @@ tableBody.addEventListener("click", async (e) => {
     try {
       const response = await axios({
         method: "DELETE",
-        url: `${BASE_URL}/api/v1/customer/delete/${customerId}`,
+        url: `/api/v1/customer/delete/${customerId}`,
       });
       console.log(response);
       if (response.data.status === "success") {
