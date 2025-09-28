@@ -217,15 +217,11 @@ async function sendBirthdayEmails() {
   }
 }
 
-cron.schedule("*/5 * * * *", () => {
+
+cron.schedule("0 7 * * *", () => {
   console.log("Running birthday check...");
   sendBirthdayEmails();
 });
-
-// cron.schedule("0 7 * * *", () => {
-//   console.log("Running birthday check...");
-//   sendBirthdayEmails();
-// });
 
 // const sendNow = async () => {
 //   console.log("sending email...");
